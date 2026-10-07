@@ -1,0 +1,36 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: plants-api
+  datasource:
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+  flyway:
+    baseline-on-migrate: true
+    locations:
+      - classpath:db/migration
+  jpa:
+    hibernate:
+      ddl-auto: validate
+management:
+  endpoint:
+    health:
+      show-details: never
+      show-components: never
+      probes:
+        enabled: false
+  endpoints:
+    web:
+      base-path: /
+  health:
+    defaults:
+      enabled: true
+    db:
+      enabled: true
+external:
+  frontend:
+    ips:
+      - http://localhost:3000
