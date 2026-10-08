@@ -6,7 +6,7 @@ services:
     env_file:
       - .env
     volumes:
-      - plants-api-db-volume:/var/lib/postgresql
+      - plants-api-db-volume:/var/lib/postgresql/data
     networks:
       - backend-to-db
     healthcheck:
@@ -48,5 +48,6 @@ volumes:
 networks:
   backend-to-db:
     driver: bridge
+    internal: true
   nginx-to-backend:
     driver: bridge
