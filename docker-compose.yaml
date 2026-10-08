@@ -9,6 +9,11 @@ services:
       - "5432:5432"
     volumes:
       - plants-api-db-volume:/var/lib/postgresql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
     container_name: plants-api-backend
