@@ -12,9 +12,8 @@ services:
 
   backend:
     container_name: plants-api-backend
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
+    image: nnimens/plants-api:latest
     env_file:
       - .env
     ports:
