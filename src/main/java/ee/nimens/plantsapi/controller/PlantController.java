@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/plant")
+@RequestMapping("/api/plants")
 @RequiredArgsConstructor
 public class PlantController {
 
