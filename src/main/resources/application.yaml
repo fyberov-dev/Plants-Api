@@ -15,21 +15,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-management:
-  endpoint:
-    health:
-      show-details: never
-      show-components: never
-      probes:
-        enabled: false
-  endpoints:
-    web:
-      base-path: /
-  health:
-    defaults:
-      enabled: true
-    db:
-      enabled: true
 external:
   frontend:
     ips:

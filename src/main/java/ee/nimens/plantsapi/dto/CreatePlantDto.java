@@ -1,17 +1,18 @@
 package ee.nimens.plantsapi.dto;
 
-import static io.swagger.v3.oas.annotations.media.Schema.RequiredMode.REQUIRED;
-
-import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public record CreatePlantDto(
-        @Schema(requiredMode = REQUIRED,
-                minLength = 1,
-                maxLength = 100,
-                pattern = "^[^\\u0000]*$")
+        @NotNull
+        @Size(min = 1, max = 100)
+        @Pattern(regexp = "^[^\\x00]*$")
         String name,
-        @Schema(requiredMode = REQUIRED,
-                minimum = "0",
-                maximum = "1000000")
+        @NotNull
+        @Min(0)
+        @Max(1000000)
         int heightCm
 ) {}
