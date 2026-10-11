@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: plants-api
+  jackson:
+    mapper:
+      allow-coercion-of-scalars: false
   datasource:
     username: postgres
     password: postgres

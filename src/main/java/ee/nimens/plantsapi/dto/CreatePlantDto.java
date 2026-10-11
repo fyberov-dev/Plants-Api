@@ -14,5 +14,5 @@ public record CreatePlantDto(
         @NotNull
         @Min(0)
         @Max(1000000)
-        int heightCm
+        Integer heightCm
 ) {}

@@ -1,0 +1,43 @@
+#cloud-config
+package_update: true
+packages:
+    - docker.io
+    - docker-compose-v2
+write_files:
+    - path: /opt/app/docker-compose.yaml
+      owner: root:root
+      permissions: '0600'
+      content: |
+        services:
+            backend:
+                container_name: plants-api-backend
+                image: ${beacon_image}
+                restart: unless-stopped
+                environment:
+                    SPRING_DATASOURCE_USERNAME: ${db_login}
+                    SPRING_DATASOURCE_PASSWORD: ${db_password}
+                    SPRING_DATASOURCE_URL: jdbc:postgresql://${db_fqdn}/${db_name}
+                networks:
+                    - nginx-to-backend
+            nginx:
+                container_name: plants-api-nginx
+                image: nginx:stable-alpine
+                restart: unless-stopped
+                ports:
+                    - "80:80"
+                volumes:
+                    - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+                networks:
+                    - nginx-to-backend
+                depends_on:
+                    - backend
+        networks:
+            nginx-to-backend:
+                driver: bridge
+    - path: /opt/app/nginx.conf
+      permissions: '0600'
+      encoding: b64
+      content: ${nginx_conf_file}
+runcmd:
+    - systemctl enable --now docker
+    - docker compose -f /opt/app/docker-compose.yaml up -d
